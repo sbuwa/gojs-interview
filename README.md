@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+## GoJS Interview Project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+The src folder contains `graph.js` which contains the source code for the solution. Other files were an attempt to recreate the hexagonal grid layout.
 
 ## Available Scripts
 

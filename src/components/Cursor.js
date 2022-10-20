@@ -1,57 +1,37 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
-export function Cursor(cursor, color, name) {
-	if (!cursor) return null
-
-	const { x, y } = cursor
-
-	return (
-		<div
-			style={{
-				position: 'absolute',
-				pointerEvents: 'none',
-				userSelect: 'none',
-				left: 0,
-				top: 0,
-				transition: 'transform 0.5s cubic-bezier(.17,.93,.38,1)',
-				transform: `translateX(${x}px) translateY(${y}px)`,
-			}}
-		>
-			<svg
-				className='cursor'
-				width='24'
-				height='36'
-				viewBox='0 0 24 36'
-				fill='none'
-				stroke='white'
-				xmlns='http://www.w3.org/2000/svg'
-			>
-				<path
-					d='M5.65376 12.3673H5.46026L5.31717 12.4976L0.500002 16.8829L0.500002 1.19841L11.7841 12.3673H5.65376Z'
-					fill={color}
-				/>
-			</svg>
-
-			<div
-				style={{
-					backgroundColor: color,
-					borderRadius: 4,
-					position: 'absolute',
-					top: 20,
-					left: 10,
-					padding: '5px 10px',
-				}}
-			>
-				<p
-					style={{
-						whiteSpace: 'nowrap',
-						fontSize: 13,
-						color: 'white',
-					}}
-				>
-					{name}
-				</p>
-			</div>
-		</div>
-	)
+const Cursor = ({x, y, color}) => {
+	useEffect (()=>{
+		console.log("Cursor mounted")
+		return ()=>{
+			console.log("Cursor unmounted")
+		}
+	},[])
+	
+  return (
+    <div>
+      <svg
+        // ref={rCursor}
+        className='cursor'
+        xmlns='http://www.w3.org/2000/svg'
+        viewBox='0 0 35 35'
+        fill='none'
+        fillRule='evenodd'
+		style={{
+			"transform": `translate(${x}px, ${y}px)`
+		}}
+      >
+        <g fill='rgba(0,0,0,92)'>
+          <path d='m12 24.4219v-16.015l11.591 11.619h-6.781l-.411.124z' />
+          <path d='m21.0845 25.0962-3.605 1.535-4.682-11.089 3.686-1.553z' />
+        </g>
+        <g fill={color}>
+          <path d='m12 24.4219v-16.015l11.591 11.619h-6.781l-.411.124z' />
+          <path d='m21.0845 25.0962-3.605 1.535-4.682-11.089 3.686-1.553z' />
+        </g>
+      </svg>
+    </div>
+  );
 }
+
+export default Cursor

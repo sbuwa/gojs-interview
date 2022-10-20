@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import * as Y from 'yjs'
-import Quill from 'quill'
-import QuillCursors from 'quill-cursors'
 import { QuillBinding } from 'y-quill'
 import { WebrtcProvider } from 'y-webrtc'
+import Quill from 'quill'
+import QuillCursors from 'quill-cursors'
 
 export default function TextEditor() {
 	useEffect(() => {
@@ -42,7 +42,6 @@ export default function TextEditor() {
 
 	return (
 		<div className='text-editor'>
-			<h1>Editor</h1>
 			<div id='editor' />
 		</div>
 	)

@@ -1,29 +1,46 @@
-import React, { useCallback } from 'react'
-import { useSelf, useOthers, usePresence } from 'y-presence'
-import { Cursor } from './Cursor'
+import React from 'react';
+import Cursor from './Cursor';
+import TextEditor from './TextEditor';
+import { USER_COLORS } from '../constants';
+import { useOthers, useSelf } from 'y-presence';
 
-export default function Room() {
-	const others = useOthers()
-	const { self, updatePresence } = useSelf()
+const color = USER_COLORS[Math.floor(Math.random() * USER_COLORS.length)];
 
-	const handlePointMove = useCallback(
-		(event) => {
-			updatePresence({
-				x: event.clientX,
-				y: event.clientY,
-			})
-			console.log(event.clientX, event.clientY)
-		},
-		[updatePresence]
-	)
-	return (
-		<div className='room' onPointerMove={handlePointMove}>
-			<div className='info'>
-				Number of connected users: {others.length + 1}
-			</div>
-			{others.map((user) => {
-				return <Cursor key={user.id} {...user.presence} />
-			})}
-		</div>
-	)
+export default function CursorRoom() {
+  const others = useOthers();
+
+  const { updatePresence } = useSelf({
+    x: 0,
+    y: 0,
+    color: color,
+  });
+
+  const handlePointMove = React.useCallback(
+    (e) => {
+      updatePresence({
+        x: e.clientX,
+        y: e.clientY,
+      });
+    },
+    [updatePresence]
+  );
+
+  return (
+    <div className='room' onPointerMove={handlePointMove}>
+      <div className='info'>
+        There are currently {others.length} other cursor(s) present in the room
+      </div>
+      {others.map(({ id, presence }) => {
+        if (!presence) return null;
+        return (
+          <Cursor
+            key={id}
+            color={presence.color}
+            x={presence.x}
+            y={presence.y}
+          />
+        );
+      })}
+    </div>
+  );
 }
